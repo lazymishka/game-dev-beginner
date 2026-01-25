@@ -13,11 +13,20 @@ def draw():
 def monsterpos():
     mon.x=random.randint(0,500)
     mon.y=random.randint(0,500)
-    clock.schedule_unique(misclick,2.0)
+    clock.schedule_unique(misclick,0.8)
 def misclick():
     global mes
     mes= "You've misclicked, try again!" 
     monsterpos()
-
+#mouseclickevent
+def on_mouse_down(pos):
+    global mes
+    if mon.collidepoint(pos):
+        mes="You've hit the monster!"
+        clock.unschedule(misclick)
+        monsterpos()
+    else:
+        mes= "You've misclicked, try again!" 
 monsterpos()
 pgzrun.go()
+
